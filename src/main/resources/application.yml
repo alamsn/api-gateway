@@ -1,0 +1,20 @@
+server.port: 9999
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8089/eureka
+    healthcheck:
+      enabled: true
+spring.cloud.gateway.discovery.locator.enabled: true
+#spring.cloud.gateway.discovery.locator.lower-case-service-id: true
+spring:
+  application.name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: UserManagementService
+        uri: lb://USER-MANAGEMENT-SERVICE
+        predicates:
+        - Path=/users/**, /product/**
+        #- Path=/product/**
